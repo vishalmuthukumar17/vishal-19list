@@ -1,0 +1,167 @@
+
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+    
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class NodeNextANOTHER {
+    Node head;
+    
+    // Insert at beginning (inbg)
+    public void inbg(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+        System.out.println(data + " inserted at beginning");
+    }
+    
+    // Search for a value
+    public boolean search(int value) {
+        Node temp = head;
+        while(temp != null) {
+            if(temp.data == value) {
+                return true;
+            }
+            temp = temp.next;
+        }
+        return false;
+    }
+    
+    // Delete from beginning
+    public void deleteFromBeginning() {
+        if(head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        System.out.println(head.data + " deleted from beginning");
+        head = head.next;
+    }
+    
+    // Delete specific value
+    public void deleteValue(int value) {
+        if(head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        
+        if(head.data == value) {
+            System.out.println(value + " deleted from list");
+            head = head.next;
+            return;
+        }
+        
+        Node temp = head;
+        while(temp.next != null) {
+            if(temp.next.data == value) {
+                System.out.println(value + " deleted from list");
+                temp.next = temp.next.next;
+                return;
+            }
+            temp = temp.next;
+        }
+        System.out.println("Value not found");
+    }
+    
+    // Delete from end
+    public void deleteFromEnd() {
+        if(head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        
+        if(head.next == null) {
+            System.out.println(head.data + " deleted from end");
+            head = null;
+            return;
+        }
+        
+        Node temp = head;
+        while(temp.next.next != null) {
+            temp = temp.next;
+        }
+        System.out.println(temp.next.data + " deleted from end");
+        temp.next = null;
+    }
+    
+    // Display the list
+    public void display() {
+        if(head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        
+        Node temp = head;
+        System.out.print("List: ");
+        while(temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        NodeNextANOTHER list = new NodeNextANOTHER();
+        int choice, value;
+        
+        while(true) {
+            System.out.println("\nLinked List Operations:");
+            System.out.println("1. Insert at beginning (inbg)");
+            System.out.println("2. Search for a value");
+            System.out.println("3. Delete from beginning");
+            System.out.println("4. Delete a specific value");
+            System.out.println("5. Delete from end");
+            System.out.println("6. Display list");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            
+            switch(choice) {
+                case 1:
+                    System.out.print("Enter value to insert: ");
+                    value = sc.nextInt();
+                    list.inbg(value);
+                    break;
+                    
+                case 2:
+                    System.out.print("Enter value to search: ");
+                    value = sc.nextInt();
+                    System.out.println("Search result: " + list.search(value));
+                    break;
+                    
+                case 3:
+                    list.deleteFromBeginning();
+                    break;
+                    
+                case 4:
+                    System.out.print("Enter value to delete: ");
+                    value = sc.nextInt();
+                    list.deleteValue(value);
+                    break;
+                    
+                case 5:
+                    list.deleteFromEnd();
+                    break;
+                    
+                case 6:
+                    list.display();
+                    break;
+                    
+                case 7:
+                    System.out.println("Exiting program...");
+                    sc.close();
+                    System.exit(0);
+                    
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+        }
+    }
+}
